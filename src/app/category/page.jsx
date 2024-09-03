@@ -62,7 +62,7 @@ export default function Page() {
                 <CheckIcon />
                 <p>양식</p>
               </div>
-              {/* 1개의 아이템 박스 */}
+              {/* 1개의 아이템 박스. */}
 
               <div className={styles.iconBox}>
                 <CheckIcon />
