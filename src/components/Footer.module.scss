@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .container {
   display: flex;
   padding: 30px 20px;
@@ -12,3 +13,19 @@
     }
   }
 }
+=======
+.container {
+  display: flex;
+  padding: 30px 20px;
+  border-top: 1px solid #dedede;
+  background-color: rgba(23, 123, 44, 0.1);
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    li {
+      font-weight: bold;
+    }
+  }
+}
+>>>>>>> bbba67032a051d9dc382c3f3a33783bd61dd76ec
