@@ -13,7 +13,7 @@ export default function App() {
   useEffect(()=> {
     setTimeout(()=> {
       router.push('/home');
-        }, 3000)
+        }, 2000)
   },)
   
 
