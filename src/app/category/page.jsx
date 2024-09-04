@@ -31,7 +31,11 @@ export default function Page() {
 
   // 페이지 이동 버튼 이벤트
   const clickMoveChange = () => {
-    if (!notAllow) router.push(`/category/1`);
+    if (notAllow) {
+      return;
+    } else {
+      router.push(`/category/1`);
+    }
   };
 
   // 카테고리 버튼 클릭 이벤트

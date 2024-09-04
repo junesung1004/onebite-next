@@ -12,9 +12,7 @@ export default function Home() {
       </section>
 
       <section className={styles.imageContainer}>
-        <div className={styles.imgWrap}>
-          <Image />
-        </div>
+        <div className={styles.imgWrap}>{/* <Image src={}/> */}</div>
         <div className={styles.btn}>
           <Link href={"/category"}>맞춤설정</Link>
         </div>
