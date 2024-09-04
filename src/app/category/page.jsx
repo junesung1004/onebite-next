@@ -4,7 +4,7 @@ import Link from "next/link";
 import styles from "./page.module.scss";
 import CheckIcon from "@/components/CheckIcon";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Page() {
   const router = useRouter();
@@ -27,9 +27,11 @@ export default function Page() {
     fifteen: false,
   });
 
-  // 버튼 이벤트
+  const [notAllow, setNotAllow] = useState(true);
+
+  // 페이지 이동 버튼 이벤트
   const clickMoveChange = () => {
-    router.push(`/category/1`);
+    if (!notAllow) router.push(`/category/1`);
   };
 
   // 카테고리 버튼 클릭 이벤트
@@ -112,6 +114,33 @@ export default function Page() {
     }
   };
 
+  //카테고리가 둘개중 하나씩 각각 선택되어야지 활성화 버튼
+  useEffect(() => {
+    let isCategoryChecked = false;
+    let isPriceCategoryChecked = false;
+
+    //for문을 돌다가 하나라도 id가 체크되어있으면 그냥 빠져나와
+    for (let id in checkedItems) {
+      if (checkedItems[id]) {
+        isCategoryChecked = true;
+        break;
+      }
+    }
+
+    for (let id in priceCheckedItems) {
+      if (priceCheckedItems[id]) {
+        isPriceCategoryChecked = true;
+        break;
+      }
+    }
+
+    if (isCategoryChecked && isPriceCategoryChecked) {
+      setNotAllow(false);
+    } else {
+      setNotAllow(true);
+    }
+  }, [checkedItems, priceCheckedItems]);
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -185,7 +214,7 @@ export default function Page() {
           </article>
         </section>
       </main>
-      <button type="button" onClick={() => clickMoveChange()}>
+      <button className={`${styles.button} ${!notAllow ? styles.active : ""}`} type="button" onClick={() => clickMoveChange()} disabled={notAllow}>
         메뉴 보기
       </button>
     </div>

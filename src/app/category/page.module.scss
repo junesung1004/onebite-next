@@ -100,7 +100,7 @@
     }
   }
 
-  button {
+  .button {
     background-color: #ffd5c0;
     padding: 10px;
     border-radius: 8px;
@@ -108,7 +108,9 @@
     letter-spacing: 0.1rem;
     color: white;
     transition: all 0.6s;
-    &:hover {
+    cursor: not-allowed; /* 기본 상태에서 커서를 변경 */
+    &.active {
+      cursor: pointer;
       background-color: rgb(237, 76, 0);
     }
   }
