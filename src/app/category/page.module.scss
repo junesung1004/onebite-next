@@ -1,7 +1,6 @@
 @font-face {
   font-family: "Pretendard-Regular";
-  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
-    format("woff");
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
 }
@@ -42,7 +41,7 @@
           gap: 10px;
           .iconBox {
             cursor: pointer;
-            background-color: rgba(246, 247, 247, 0.7);
+            background-color: rgba(246, 247, 247, 0.4);
             opacity: 0.7;
             border: 1px solid #dedede;
             display: flex;
@@ -53,8 +52,6 @@
             font-weight: 400;
             letter-spacing: 0.05rem;
             &:hover {
-              color: white;
-              background-color: rgb(237, 76, 0);
               opacity: 1;
             }
             p {
@@ -86,8 +83,6 @@
             font-weight: 400;
             letter-spacing: 0.05rem;
             &:hover {
-              color: white;
-              background-color: rgb(237, 76, 0);
               opacity: 1;
             }
             p {
@@ -96,8 +91,6 @@
           }
         }
       }
-
-      
 
       .distanceCategoryContainer {
         h3 {
@@ -116,7 +109,7 @@
     color: white;
     transition: all 0.6s;
     &:hover {
-      background-color: rgb(237,76,0);
+      background-color: rgb(237, 76, 0);
     }
   }
 }

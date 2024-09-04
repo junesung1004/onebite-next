@@ -4,15 +4,113 @@ import Link from "next/link";
 import styles from "./page.module.scss";
 import CheckIcon from "@/components/CheckIcon";
 import { useRouter } from "next/navigation";
-
+import { useState } from "react";
 
 export default function Page() {
+  const router = useRouter();
+  // 각 아이템 박스의 체크 상태를 관리하는 state
+  const [checkedItems, setCheckedItems] = useState({
+    all: false,
+    alone: false,
+    kr: false,
+    cn: false,
+    jp: false,
+    us: false,
+    asia: false,
+    tang: false,
+  });
 
-  const router = useRouter()
+  const [priceCheckedItems, setPriceCheckedItems] = useState({
+    priceAll: false,
+    eight: false,
+    ten: false,
+    fifteen: false,
+  });
 
+  // 버튼 이벤트
   const clickMoveChange = () => {
-    router.push(`/category/1`)
-  }
+    router.push(`/category/1`);
+  };
+
+  // 카테고리 버튼 클릭 이벤트
+  const clickCheckedEvent = (id) => {
+    if (id === "all") {
+      // "전체" 아이템이 클릭되었을 때, 모든 항목을 현재 "all"의 상태로 설정
+      const checkedChange = !checkedItems.all; //checkedItems의 변수들을 모두 선택해서 반전시켜준다.
+      setCheckedItems({
+        all: checkedChange,
+        alone: checkedChange,
+        kr: checkedChange,
+        cn: checkedChange,
+        jp: checkedChange,
+        us: checkedChange,
+        asia: checkedChange,
+        tang: checkedChange,
+      });
+    } else {
+      // 개별 아이템이 클릭되었을 때 상태 업데이트
+      setCheckedItems((prev) => {
+        //id의 값들을 새로운 객체배열로 나열한다.
+        const updatedItems = { ...prev };
+
+        //해당 id를 클릭하면 상태를 반전시킨다.
+        //예를들어 true일경우 false로 반전.
+        updatedItems[id] = !updatedItems[id];
+
+        // 만약 하나라도 체크되지 않은 항목이 있으면 "전체"의 체크 상태를 해제
+        //모든 항목이 체크되어있는지 확인
+        let allChecked = true;
+        for (let id in updatedItems) {
+          if (id !== "all" && !updatedItems[id]) {
+            allChecked = false;
+          }
+        }
+
+        return {
+          ...updatedItems,
+          all: allChecked,
+        };
+      });
+    }
+  };
+
+  // 가격 카테고리 버튼 클릭 이벤트
+  const clickCheckedPriceEvent = (id) => {
+    if (id === "priceAll") {
+      // "전체" 아이템이 클릭되었을 때, 모든 항목을 현재 "all"의 상태로 설정
+      const checkedChange = !priceCheckedItems.priceAll; //checkedItems의 변수들을 모두 선택해서 반전시켜준다.
+      setPriceCheckedItems({
+        priceAll: checkedChange,
+        eight: checkedChange,
+        ten: checkedChange,
+        fifteen: checkedChange,
+      });
+    } else {
+      // 개별 아이템이 클릭되었을 때 상태 업데이트
+      setPriceCheckedItems((prev) => {
+        //id의 값들을 새로운 객체배열로 나열한다.
+        const updatedItems = { ...prev };
+
+        //해당 id를 클릭하면 상태를 반전시킨다.
+        //예를들어 true일경우 false로 반전.
+        updatedItems[id] = !updatedItems[id];
+
+        // 만약 하나라도 체크되지 않은 항목이 있으면 "전체"의 체크 상태를 해제
+        //모든 항목이 체크되어있는지 확인
+        let allChecked = true;
+        for (let id in updatedItems) {
+          if (id !== "priceAll" && !updatedItems[id]) {
+            allChecked = false;
+          }
+        }
+
+        return {
+          ...updatedItems,
+          priceAll: allChecked,
+        };
+      });
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -28,82 +126,56 @@ export default function Page() {
           <article className={styles.categoryContainer}>
             <h3>카테고리</h3>
             <div className={styles.categoryWrap}>
-              <div className={styles.iconBox}>
-                <CheckIcon />
-                <p>전체</p>
-              </div>
-              {/* 아이템 박스 */}
-
-              <div className={styles.iconBox}>
-                <CheckIcon />
-                <p>1인분</p>
-              </div>
-              {/* 아이템 박스 */}
-
-              <div className={styles.iconBox}>
-                <CheckIcon />
-                <p>한식</p>
-              </div>
-              {/* 1개의 아이템 박스 */}
-
-              <div className={styles.iconBox}>
-                <CheckIcon />
-                <p>중식</p>
-              </div>
-              {/* 1개의 아이템 박스 */}
-
-              <div className={styles.iconBox}>
-                <CheckIcon />
-                <p>일식</p>
-              </div>
-              {/* 1개의 아이템 박스 */}
-
-              <div className={styles.iconBox}>
-                <CheckIcon />
-                <p>양식</p>
-              </div>
-              {/* 1개의 아이템 박스. */}
-
-              <div className={styles.iconBox}>
-                <CheckIcon />
-                <p>아시안</p>
-              </div>
-              {/* 1개의 아이템 박스 */}
-
-              <div className={styles.iconBox}>
-                <CheckIcon />
-                <p>찜, 탕, 찌개</p>
-              </div>
-              {/* 1개의 아이템 박스 */}
+              {[
+                { id: "all", label: "전체" },
+                { id: "alone", label: "1인분" },
+                { id: "kr", label: "한식" },
+                { id: "cn", label: "중식" },
+                { id: "jp", label: "일식" },
+                { id: "us", label: "양식" },
+                { id: "asia", label: "아시안" },
+                { id: "tang", label: "찜, 탕, 찌개" },
+              ].map((item) => (
+                <div
+                  key={item.id}
+                  className={styles.iconBox}
+                  id={item.id}
+                  onClick={() => clickCheckedEvent(item.id)}
+                  style={{
+                    backgroundColor: checkedItems[item.id] ? "rgb(237, 76, 0)" : "rgba(246, 247, 247, 0.7)",
+                    color: checkedItems[item.id] ? "white" : "inherit",
+                  }}
+                >
+                  <CheckIcon />
+                  <p>{item.label}</p>
+                </div>
+              ))}
             </div>
           </article>
 
           <article className={styles.priceCategoryContainer}>
             <h3>카테고리</h3>
             <div className={styles.categoryWrap}>
-              <div className={styles.iconBox}>
-                <CheckIcon />
-                <p>전체</p>
-              </div>
-              {/* 아이템 박스 */}
-
-              <div className={styles.iconBox}>
-                <CheckIcon />
-                <p>8000원 이하</p>
-              </div>
-              {/* 아이템 박스 */}
-
-              <div className={styles.iconBox}>
-                <CheckIcon />
-                <p>10000원 이하</p>
-              </div>
-              {/* 아이템 박스 */}
-
-              <div className={styles.iconBox}>
-                <CheckIcon />
-                <p>15000원 이하</p>
-              </div>
-              {/* 아이템 박스 */}
+              {[
+                { id: "priceAll", label: "전체" },
+                { id: "eight", label: "8000원 이하" },
+                { id: "ten", label: "10000원 이하" },
+                { id: "fifteen", label: "15000원 이하" },
+              ].map((item) => (
+                <div
+                  key={item.id}
+                  className={styles.iconBox}
+                  id={item.id}
+                  onClick={() => clickCheckedPriceEvent(item.id)}
+                  style={{
+                    backgroundColor: priceCheckedItems[item.id] ? "rgb(237, 76, 0)" : "rgba(246, 247, 247, 0.7)",
+                    color: priceCheckedItems[item.id] ? "white" : "inherit",
+                  }}
+                >
+                  <CheckIcon />
+                  <p>{item.label}</p>
+                </div>
+              ))}
             </div>
           </article>
 
@@ -113,7 +185,9 @@ export default function Page() {
           </article>
         </section>
       </main>
-      <button type="button" onClick={()=>clickMoveChange()}>메뉴 보기</button>
+      <button type="button" onClick={() => clickMoveChange()}>
+        메뉴 보기
+      </button>
     </div>
   );
 }
