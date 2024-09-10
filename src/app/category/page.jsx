@@ -2,22 +2,25 @@
 
 import Link from "next/link";
 import styles from "./page.module.scss";
-import CheckIcon from "@/components/CheckIcon";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import DistanceBar from "@/components/DistanceBar/DistanceBar";
 
 export default function Page() {
   const router = useRouter();
   // 각 아이템 박스의 체크 상태를 관리하는 state
   const [checkedItems, setCheckedItems] = useState({
     all: false,
-    alone: false,
     kr: false,
+    streetfood: false,
     cn: false,
     jp: false,
     us: false,
-    asia: false,
     tang: false,
+    diet: false,
+    asia: false,
+    meet: false,
+    night: false,
   });
 
   const [priceCheckedItems, setPriceCheckedItems] = useState({
@@ -34,7 +37,22 @@ export default function Page() {
     if (notAllow) {
       return;
     } else {
-      router.push(`/category/1`);
+      //선택된 첫번째 카테고리 필터
+      const selectedCategories = Object.keys(checkedItems)
+        .filter((key) => checkedItems[key] && key !== "all")
+        .join(",");
+
+      //선택된 두번째 가격 카테고리 필터
+      const selectedPriceCatogories = Object.keys(priceCheckedItems)
+        .filter((key) => priceCheckedItems[key] && key !== "priceAll")
+        .join(",");
+
+      // 위 2개의 카테고리를 선택한 쿼리 문자열 생성 코드
+      const queryString = new URLSearchParams({
+        categories: selectedCategories,
+        price: selectedPriceCatogories,
+      }).toString();
+      router.push(`/category/${queryString}`);
     }
   };
 
@@ -45,13 +63,16 @@ export default function Page() {
       const checkedChange = !checkedItems.all; //checkedItems의 변수들을 모두 선택해서 반전시켜준다.
       setCheckedItems({
         all: checkedChange,
-        alone: checkedChange,
         kr: checkedChange,
+        streetfood: checkedChange,
         cn: checkedChange,
         jp: checkedChange,
         us: checkedChange,
-        asia: checkedChange,
         tang: checkedChange,
+        diet: checkedChange,
+        asia: checkedChange,
+        meet: checkedChange,
+        night: checkedChange,
       });
     } else {
       // 개별 아이템이 클릭되었을 때 상태 업데이트
@@ -149,37 +170,43 @@ export default function Page() {
     <div className={styles.container}>
       <header className={styles.header}>
         <nav className={styles.nav}>
-          <Link href={"/home"}>뒤로가기</Link>
+          <Link href={"/home"}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={styles.icon}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+            </svg>
+          </Link>
+          <h1>맞춤설정</h1>
         </nav>
-        <h1>맞춤설정</h1>
       </header>
 
       <main className={styles.mainContainer}>
         <section>
           <article className={styles.categoryContainer}>
-            <h3>카테고리</h3>
+            <h3>오늘은 뭐 먹을까요?</h3>
             <div className={styles.categoryWrap}>
               {[
                 { id: "all", label: "전체" },
-                { id: "alone", label: "1인분" },
                 { id: "kr", label: "한식" },
+                { id: "streetfood", label: "분식" },
                 { id: "cn", label: "중식" },
                 { id: "jp", label: "일식" },
                 { id: "us", label: "양식" },
-                { id: "asia", label: "아시안" },
                 { id: "tang", label: "찜, 탕, 찌개" },
+                { id: "diet", label: "다이어트식" },
+                { id: "asia", label: "아시안" },
+                { id: "meet", label: "고기, 구이" },
+                { id: "night", label: "야식" },
               ].map((item) => (
                 <div
                   key={item.id}
-                  className={styles.iconBox}
+                  className={styles.itemBox}
                   id={item.id}
                   onClick={() => clickCheckedEvent(item.id)}
                   style={{
-                    backgroundColor: checkedItems[item.id] ? "rgb(237, 76, 0)" : "rgba(246, 247, 247, 0.7)",
+                    backgroundColor: checkedItems[item.id] ? "#EB4726" : "white",
                     color: checkedItems[item.id] ? "white" : "inherit",
                   }}
                 >
-                  <CheckIcon />
                   <p>{item.label}</p>
                 </div>
               ))}
@@ -187,7 +214,7 @@ export default function Page() {
           </article>
 
           <article className={styles.priceCategoryContainer}>
-            <h3>카테고리</h3>
+            <h3>가격대</h3>
             <div className={styles.categoryWrap}>
               {[
                 { id: "priceAll", label: "전체" },
@@ -197,15 +224,14 @@ export default function Page() {
               ].map((item) => (
                 <div
                   key={item.id}
-                  className={styles.iconBox}
+                  className={styles.itemBox}
                   id={item.id}
                   onClick={() => clickCheckedPriceEvent(item.id)}
                   style={{
-                    backgroundColor: priceCheckedItems[item.id] ? "rgb(237, 76, 0)" : "rgba(246, 247, 247, 0.7)",
+                    backgroundColor: priceCheckedItems[item.id] ? "#EB4726" : "white",
                     color: priceCheckedItems[item.id] ? "white" : "inherit",
                   }}
                 >
-                  <CheckIcon />
                   <p>{item.label}</p>
                 </div>
               ))}
@@ -213,14 +239,28 @@ export default function Page() {
           </article>
 
           <article className={styles.distanceCategoryContainer}>
-            <h3>거리순으로 매장추천 받기</h3>
-            <div>스틱바 어떻게 구현하징...</div>
+            <h3>매장 거리 지정</h3>
+            <DistanceBar />
           </article>
         </section>
       </main>
-      <button className={`${styles.button} ${!notAllow ? styles.active : ""}`} type="button" onClick={() => clickMoveChange()} disabled={notAllow}>
-        메뉴 보기
-      </button>
+
+      <div className={styles.btnWrap}>
+        <button className={`${styles.button}`} type="button" onClick={() => clickMoveChange()}>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={styles.icon}>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
+            />
+          </svg>
+
+          <p>초기화</p>
+        </button>
+        <button className={`${styles.button} ${!notAllow ? styles.active : ""}`} type="button" onClick={() => clickMoveChange()} disabled={notAllow}>
+          메뉴 보기
+        </button>
+      </div>
     </div>
   );
 }

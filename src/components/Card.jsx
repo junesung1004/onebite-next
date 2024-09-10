@@ -22,6 +22,8 @@ export default function Card() {
     <Swiper
       className={styles["swiper-container"]}
       loop={true}
+      slidesPerView={1} // 두 개의 슬라이드를 보이도록 설정
+      centeredSlides={true} // 슬라이드 중앙 정렬
       navigation
       modules={[Navigation, Pagination, Scrollbar, EffectFade]}
       effect="fade"
@@ -29,19 +31,19 @@ export default function Card() {
       pagination={{ clickable: true }}
     >
       <SwiperSlide className={styles["swiper-slide"]}>
-        <Image src={img1} alt="이미지 슬라이드 1" priority width={260} height={400} />
+        <Image src={img1} alt="이미지 슬라이드 1" priority width={320} height={400} />
       </SwiperSlide>
       <SwiperSlide className={styles["swiper-slide"]}>
-        <Image src={img2} alt="이미지 슬라이드 2" priority width={260} height={400} />
+        <Image src={img2} alt="이미지 슬라이드 2" priority width={320} height={400} />
       </SwiperSlide>
       <SwiperSlide className={styles["swiper-slide"]}>
-        <Image src={img3} alt="이미지 슬라이드 3" priority width={260} height={400} />
+        <Image src={img3} alt="이미지 슬라이드 3" priority width={320} height={400} />
       </SwiperSlide>
       <SwiperSlide className={styles["swiper-slide"]}>
-        <Image src={img4} alt="이미지 슬라이드 4" priority width={260} height={400} />
+        <Image src={img4} alt="이미지 슬라이드 4" priority width={320} height={400} />
       </SwiperSlide>
       <SwiperSlide className={styles["swiper-slide"]}>
-        <Image src={img5} alt="이미지 슬라이드 5" priority width={260} height={400} />
+        <Image src={img5} alt="이미지 슬라이드 5" priority width={320} height={400} />
       </SwiperSlide>
     </Swiper>
   );
