@@ -3,7 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import KakaoProvider from "next-auth/providers/kakao";
 
-//npm i next-auth
+//npm i next-auth..
 
 export const authOptions = {
   providers: [
@@ -34,5 +34,3 @@ export const authOptions = {
 };
 
 export default NextAuth(authOptions);
-
-//test....
