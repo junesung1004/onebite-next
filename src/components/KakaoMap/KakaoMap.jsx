@@ -11,7 +11,7 @@ export default function KakaoMap({ selectedfood }) {
 
   const selectedFoodName = selectedfood.title;
 
-  // 키워드 기반으로 검색된 장소들을 담는 배열 state
+  // 키워드 기반으로 검색된 장소들을 담는 배열 state.
   const [place, setPlace] = useState([]);
 
   const distance = localStorage.getItem("distance");
