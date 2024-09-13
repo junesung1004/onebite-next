@@ -8,5 +8,3 @@ import { useEffect, useState } from "react";
 export default function Page() {
   return <div className={styles.container}></div>;
 }
-
-// sadad
