@@ -2,27 +2,26 @@
 
 import KakaoMap from "@/components/KakaoMap/KakaoMap";
 import styles from "./page.module.scss";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Page() {
   const item = [1, 2, 3];
 
-  // const [foodData, setFoodData] = useState({ title: "", price: "", calories: "" });
-  // console.log("foodData : ", foodData);
-
+  const [foodData, setFoodData] = useState({ title: "", price: "", calories: "" });
   const router = useRouter();
 
-  // const distance = localStorage.getItem("distance");
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // 브라우저 환경일 때만 실행
+      const queryParams = new URLSearchParams(window.location.search);
+      const title = queryParams.get("title") || "";
+      const price = queryParams.get("price") || "";
+      const calories = queryParams.get("calories") || "";
 
-  // useEffect(() => {
-  //   const queryParams = new URLSearchParams(window.location.search);
-  //   const title = queryParams.get("title") || "";
-  //   const price = queryParams.get("price") || "";
-  //   const calories = queryParams.get("calories") || "";
-
-  //   setFoodData({ title, price, calories });
-  // }, []);
+      setFoodData({ title, price, calories });
+    }
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -54,18 +53,16 @@ export default function Page() {
 
       <section className={styles.shopContainer}>
         <article className={styles.shopWrap}>
-          {item.map((item, idx) => {
-            return (
-              <div className={styles.shopDesc} key={idx}>
-                <h3>매장이름</h3>
-                <div className={styles.text}>
-                  <p>매장 평점</p>
-                  <p>영업 시간</p>
-                  <p>자세히 보기</p>
-                </div>
+          {item.map((item, idx) => (
+            <div className={styles.shopDesc} key={idx}>
+              <h3>매장이름</h3>
+              <div className={styles.text}>
+                <p>매장 평점</p>
+                <p>영업 시간</p>
+                <p>자세히 보기</p>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </article>
       </section>
     </div>
