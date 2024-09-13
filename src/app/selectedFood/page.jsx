@@ -16,10 +16,11 @@ export default function Page() {
   const [distance, setDistance] = useState(null);
 
   useEffect(() => {
+    // 클라이언트에서만 실행하도록 보장
     if (typeof window !== "undefined") {
       // localStorage에서 distance 값 가져오기
       const storedDistance = localStorage.getItem("distance");
-      setDistance(storedDistance);
+      if (storedDistance) setDistance(storedDistance);
 
       // URLSearchParams로 쿼리 파라미터 가져오기
       const queryParams = new URLSearchParams(window.location.search);
