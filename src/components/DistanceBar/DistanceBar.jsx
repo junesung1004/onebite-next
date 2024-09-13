@@ -9,10 +9,6 @@ export default function DistanceBar({ distanceValue, onDistanceChange }) {
   const handleMoveDistanceChange = (e) => {
     const value = Number(e.target.value);
     setDistance(value);
-<<<<<<< HEAD
-=======
-    localStorage.setItem("distance", value * 500);
->>>>>>> 237333af08c168005d3052432ad1997f1cf707be
     console.log("value :", value * 500);
     onDistanceChange(value); // 부모 컴포넌트로 값 전달
   };
