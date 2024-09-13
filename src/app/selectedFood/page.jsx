@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 export default function Page() {
   const item = [1, 2, 3];
 
-  const [foodData, setFoodData] = useState({ title: "", price: "", calories: "" });
-  console.log("foodData : ", foodData);
+  // const [foodData, setFoodData] = useState({ title: "", price: "", calories: "" });
+  // console.log("foodData : ", foodData);
 
   const router = useRouter();
 
