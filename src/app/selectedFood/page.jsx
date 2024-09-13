@@ -13,12 +13,13 @@ export default function Page() {
 
   const router = useRouter();
 
-  // 클라이언트 사이드에서만 실행
+  const [distance, setDistance] = useState(null);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       // localStorage에서 distance 값 가져오기
-      const distanceValue = localStorage.getItem("distance");
-      setDistance(distanceValue);
+      const storedDistance = localStorage.getItem("distance");
+      setDistance(storedDistance);
 
       // URLSearchParams로 쿼리 파라미터 가져오기
       const queryParams = new URLSearchParams(window.location.search);
@@ -29,6 +30,7 @@ export default function Page() {
       setFoodData({ title, price, calories });
     }
   }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.imgWrap}>
