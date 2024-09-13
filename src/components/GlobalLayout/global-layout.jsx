@@ -15,7 +15,7 @@ export default function GlobalLayout({ children }) {
     <div className={styles.container}>
       {/* {!hideHeader && <Header className={styles.header} />} */}
       <div className={styles.main}>{children}</div>
-      {!hideFooter && <Footer className={styles.footer} />}
+      {/* {!hideFooter && <Footer className={styles.footer} />} */}
     </div>
   );
 }

@@ -1,8 +1,16 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import styles from "./Footer.module.scss";
 import Link from "next/link";
+import LoginPopUp from "../LoginPopUp/LoginPopUp";
 
 export default function Footer() {
+  const [isPopUpVisible, setIsPopUpVisible] = useState(false);
+
+  const togglePopUp = () => {
+    setIsPopUpVisible((prev) => !prev);
+  };
   return (
     <div className={styles.container}>
       <Link href={"/"}>
@@ -15,7 +23,7 @@ export default function Footer() {
         </svg>
       </Link>
 
-      <Link href={"/mypage"}>
+      <button onClick={togglePopUp}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={styles.icon}>
           <path
             strokeLinecap="round"
@@ -23,7 +31,8 @@ export default function Footer() {
             d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
           />
         </svg>
-      </Link>
+      </button>
+      {isPopUpVisible && <LoginPopUp />}
     </div>
   );
 }
