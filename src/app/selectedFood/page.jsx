@@ -13,18 +13,21 @@ export default function Page() {
 
   const router = useRouter();
 
-  if (typeof window !== "undefined") {
-    // Code that uses localStorage
-    const distance = localStorage.getItem("distance");
-  }
-
+  // 클라이언트 사이드에서만 실행
   useEffect(() => {
-    const queryParams = new URLSearchParams(window.location.search);
-    const title = queryParams.get("title") || "";
-    const price = queryParams.get("price") || "";
-    const calories = queryParams.get("calories") || "";
+    if (typeof window !== "undefined") {
+      // localStorage에서 distance 값 가져오기
+      const distanceValue = localStorage.getItem("distance");
+      setDistance(distanceValue);
 
-    setFoodData({ title, price, calories });
+      // URLSearchParams로 쿼리 파라미터 가져오기
+      const queryParams = new URLSearchParams(window.location.search);
+      const title = queryParams.get("title") || "";
+      const price = queryParams.get("price") || "";
+      const calories = queryParams.get("calories") || "";
+
+      setFoodData({ title, price, calories });
+    }
   }, []);
   return (
     <div className={styles.container}>
