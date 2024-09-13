@@ -13,7 +13,7 @@ export default function Page() {
 
   const router = useRouter();
 
-  const distance = localStorage.getItem("distance");
+  // const distance = localStorage.getItem("distance");
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
