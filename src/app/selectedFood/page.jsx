@@ -15,14 +15,14 @@ export default function Page() {
 
   // const distance = localStorage.getItem("distance");
 
-  useEffect(() => {
-    const queryParams = new URLSearchParams(window.location.search);
-    const title = queryParams.get("title") || "";
-    const price = queryParams.get("price") || "";
-    const calories = queryParams.get("calories") || "";
+  // useEffect(() => {
+  //   const queryParams = new URLSearchParams(window.location.search);
+  //   const title = queryParams.get("title") || "";
+  //   const price = queryParams.get("price") || "";
+  //   const calories = queryParams.get("calories") || "";
 
-    setFoodData({ title, price, calories });
-  }, []);
+  //   setFoodData({ title, price, calories });
+  // }, []);
 
   return (
     <div className={styles.container}>
