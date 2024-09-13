@@ -48,7 +48,7 @@ export default function Page() {
 
       <article className={styles.shopDistance}>
         <p>
-          <strong>{distance}m</strong>내에 <strong>7개</strong>의 매장이 있어요
+          <strong>100m</strong>내에 <strong>7개</strong>의 매장이 있어요
         </p>
       </article>
 
