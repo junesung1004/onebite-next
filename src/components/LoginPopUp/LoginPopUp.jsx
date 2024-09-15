@@ -1,8 +1,10 @@
 import { useState } from "react";
 import styles from "./LoginPopUp.module.scss";
+import { signIn } from "next-auth/react";
 
 export default function LoginPopUp() {
   const [isVisible, setIsVisible] = useState(true);
+  const [user, setUser] = useState(true);
   const closeBtn = () => {
     setIsVisible(false);
   };
@@ -10,21 +12,27 @@ export default function LoginPopUp() {
     return null;
   }
 
+  const handleSignIn = () => {
+    localStorage.setItem("user", JSON.stringify(user));
+    signIn("kakao", { callbackUrl: "/home" });
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.background}></div>
       <section className={styles.popUpContainer}>
         <article className={styles.loginPopUpContainer}>
           <div className={styles.title}>
-            <h3>로그인 후</h3>
-            <h3>
-              <span className={styles.strong}>나만의 메뉴를 구성</span>해볼까요?
-            </h3>
+            <p>
+              로그인 후 <span className={styles.point}>나만의 메뉴를 구성</span>해볼까요?
+            </p>
           </div>
         </article>
 
         <div className={styles.btnContainer}>
-          <button className={styles.loginBtn}>로그인</button>
+          <button onClick={() => handleSignIn()} className={styles.loginBtn}>
+            로그인
+          </button>
           <button
             onClick={() => {
               closeBtn();

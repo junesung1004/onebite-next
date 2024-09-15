@@ -2,14 +2,16 @@
 
 import { useEffect, useState } from "react";
 import styles from "./DistanceBar.module.scss";
+import { useUser } from "@/context/userContext";
 
 export default function DistanceBar({ distanceValue, onDistanceChange }) {
   const [distance, setDistance] = useState(0);
+  const { selectedDistance, setSelectedDistance } = useUser();
 
   const handleMoveDistanceChange = (e) => {
     const value = Number(e.target.value);
     setDistance(value);
-    console.log("value :", value * 500);
+    setSelectedDistance(value * 500);
     onDistanceChange(value); // 부모 컴포넌트로 값 전달
   };
 

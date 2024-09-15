@@ -1,19 +1,31 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Footer.module.scss";
 import Link from "next/link";
 import LoginPopUp from "../LoginPopUp/LoginPopUp";
+import { useRouter } from "next/navigation";
+import { useUser } from "@/context/userContext";
 
 export default function Footer() {
+  const router = useRouter();
+
+  const { isLogin } = useUser();
+  console.log("isLogin : ", isLogin);
+
   const [isPopUpVisible, setIsPopUpVisible] = useState(false);
 
   const togglePopUp = () => {
-    setIsPopUpVisible((prev) => !prev);
+    if (isLogin) {
+      router.push("mypage");
+    } else {
+      setIsPopUpVisible((prev) => !prev);
+    }
   };
   return (
     <div className={styles.container}>
-      <Link href={"/"}>
+      {isPopUpVisible && <LoginPopUp />}
+      <Link href={"/home"}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={styles.icon}>
           <path
             strokeLinecap="round"
@@ -32,7 +44,6 @@ export default function Footer() {
           />
         </svg>
       </button>
-      {isPopUpVisible && <LoginPopUp />}
     </div>
   );
 }

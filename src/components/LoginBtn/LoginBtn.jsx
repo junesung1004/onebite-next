@@ -1,15 +1,22 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import styles from "./LoginBtn.module.scss";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import kakao from "../../../public/images/kakaoBtn.png";
+import { useUser } from "@/context/userContext";
 
 export default function LoginBtn() {
+  const { isLogin, setIsLogin } = useUser();
+
   const handleSignIn = () => {
-    signIn("kakao", { callbackUrl: "/home" }); // 로그인 후 /home으로 리다이렉트
+    setIsLogin(true);
+    console.log("isLogin : ", isLogin);
+    const login = signIn("kakao", { callbackUrl: `/home?login=true` });
+    console.log("login : ", login);
   };
+
   return (
     <div className={styles.container}>
       <button onClick={() => handleSignIn()}>
