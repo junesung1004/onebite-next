@@ -51,7 +51,7 @@ export default function Page() {
         .filter((key) => priceCheckedItems[key] && key !== "priceAll")
         .join(",");
 
-      // 위 2개의 카테고리를 선택한 쿼리 문자열 생성 코드
+      // 위 2개의 카테고리를 선택한 쿼리 문자열 생성 코드.
       const queryString = new URLSearchParams({
         categories: selectedCategories,
         price: selectedPriceCatogories,
@@ -269,7 +269,7 @@ export default function Page() {
           <p>초기화</p>
         </button>
         <button className={`${styles.button} ${!notAllow ? styles.active : ""}`} type="button" onClick={() => clickMoveChange()} disabled={notAllow}>
-          메뉴 보기
+          적용하기
         </button>
       </div>
     </div>
